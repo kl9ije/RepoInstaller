@@ -1,0 +1,349 @@
+import Shortcuts
+#Color: blue, #Icon: bookshelf
+
+/*
+Welcome to Repo Installer++!
+Run this shortcut to import the BIGGEST Repos for your favourite signer!
+
+Made with ❤️ by Gocciola.
+
+(please don’t change something below if you don’t know what you’re doing!)
+*/
+dictionary({"rhid":"21714","version":"3.1.0","beta":"false"}) >> Info Version
+/*
+===== VARIABLES =====
+You can change these if you want, or just leave them by default.
+*/
+/*
+where do you want to save the shortcut data?
+change this only if it doesn’t save data correctly.
+*/
+file(file: $0) >> Data Folder
+/*
+what is the name of the folder where contains all the shortcut data?
+note: if you change this after you did the setup the shortcut will reset the data!
+*/
+text(text: "RepoInstaller++") >> Data Name
+// These are the signer apps that support the shortcut and the various links to add the repo to it. If you want to add support for a new app you can add it here or by joining the Discord server to add it globally.
+dictionary({"AltStore":"altstore://source?url=","SideStore":"sidestore://source?url=","Feather":"feather://source/","ESign":"esign://addsource?url=","TrollApps":"trollapps://add?url=","KravaSigner 🔥":"kravasigner://addRepo="}) >> Signer Apps
+valuesFrom(dictionary: Info Version) >> valuesFrom
+if(Valore dizionario ==) {
+var 73C4EC00-3434-4DCA-B962-D545F677A953 = """
+⚠️ This is a Beta build, features may change.
+DO NOT DISTRIBUTE THIS SHORTCUT.
+"""
+text("${73C4EC00-3434-4DCA-B962-D545F677A953}")
+var BetaWarning = Testo
+} >> IFResult
+// ===== SETUP =====
+getFile(path: "${Data Name}", error: false) >> getFile
+if(File == nil) {
+    alert(alert: "
+🗄️ With this simple shortcut you will be able to add a large collection of repositories inside your favorite signer apps!
+
+🗂️ Create custom packages to quickly and easily share your favorite repositories with your friends.
+
+🆘 Join our Discord server to make suggestions for new shortcut features, new repositories, or try out early access to new features before they hit the streets.", title: "Welcome to Repo Installer++! 👋", cancel: false)
+    alert(alert: "
+✨ Repo Installer++ has evolved and now has a completely different design!
+
+😎 Rest assured, the features are still the same, but they will have an improved look and better stability.", title: "A quick note on the new UI…", cancel: false)
+    alert(alert: "
+💾 I need to make some changes before I start. Please always allow the permissions I ask for so that the shortcut will work.", title: "Before we start...", cancel: true)
+    createFolder(path: "${Data Name}") >> createFolder
+var ShortcutData = Cartella creata
+    createFolder(path: "${Data Name}/Packs") >> createFolder 1
+    createFolder(path: "${Data Name}/Settings") >> createFolder 2
+    saveFile(input: Info Version, ask: false, path: "/Settings/ver.txt", overwrite: true) >> saveFile
+    dictionary({"name":"Default","file":"default.json"})
+    saveFile(input: Dizionario, ask: false, path: "/Settings/pack.txt", overwrite: true) >> saveFile 1
+} >> IFResult 1
+/*
+===== DEFAULT REPOS =====
+
+This is the base url where the shortcut saves the repo pack in the shortcut files in the default pack.
+*/
+getFile(path: "${Data Name}", error: false) >> getFile 1
+var ShortcutData = File
+getFile(path: "Packs/default.txt", error: false) >> getFile 2
+downloadURL(url: "https://pastefy.app/ZybByLNy/raw") >> downloadURL
+splitText(text: Contenuti URL) >> splitText
+dictionary({"name":"Default","description":"The default Repo Pack!","creator":"gocciola","repos":[],"note":"This is a Repo Pack. Import it with the Repo Installer++ shortcut!"})
+saveFile(input: Dizionario, ask: false, path: "/Packs/default.txt", overwrite: true) >> saveFile 2
+/*
+===== UPDATER =====
+
+DO NOT CHANGE ANYTHING HERE!
+*/
+downloadURL(url: "https://routinehub.co/api/v1/shortcuts/${Info Version.key(rhid)}/versions/latest") >> downloadURL 1
+valuesFrom(dictionary: Info Version) >> valuesFrom 1
+if(Valore dizionario ==) {
+} else {
+    getDictionaryFrom(input: Contenuti URL) >> getDictionaryFrom
+    valuesFrom(dictionary: Dizionario) >> valuesFrom 2
+    if(Valore dizionario == "success") {
+        valuesFrom(dictionary: Dizionario) >> valuesFrom 3
+        if(Valore dizionario != ""${Info Version.key(version)}"") {
+var DD149536-CC87-439B-A0D5-2633967DEE99 = """🆕 There is a new update for Repo Installer++!
+
+ →  ()
+
+"""
+text("${DD149536-CC87-439B-A0D5-2633967DEE99}")
+            menu(, [📥 Update now!, ⏩️ Skip Update]) {
+            case("📥 Update now!"):
+                sendNotification(body: "Add the shortcut and replace it with the existing one.", title: "📥 Update process", sound: false, attachment: $3) >> sendNotification
+                showWebPage(url: "${Dizionario.key(URL)}")
+                exit()
+            case("⏩️ Skip Update"):
+            } >> MenuResult
+        } >> IFResult 2
+    } else {
+        alert(alert: "
+😢 I was unable to connect to the RoutineHub servers, and thus could not get the latest version of the shortcut.", title: "❎ Can't connect to RoutineHub", cancel: $2)
+    } >> IFResult 3
+} >> IFResult 4
+// ===== MAIN UI =====
+dictionary({"addrepos":"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","packs":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAgESAAMAAAABAAEAAIdpAAQAAAABAAAAJgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAXaADAAQAAAABAAAAXQAAAAD/wAARCABdAF0DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwACAgICAgIDAgIDBQMDAwUGBQUFBQYIBgYGBgYICggICAgICAoKCgoKCgoKDAwMDAwMDg4ODg4PDw8PDw8PDw8P/9sAQwECAgIEBAQHBAQHEAsJCxAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQ/90ABAAG/9oADAMBAAIRAxEAPwD8wfNf+8aPNf8AvGqW4Uu8UAXPNf8AvGjzX/vGqe8Um4UAXfNf+8aPNf8AvGqe8UbxQBc81/7xo81/7xqnvFG8UAXPNf8AvGjzX/vGqe8UbxQBc81/7xqxBM/zfMe1Ze8VYgf734UAf//Q/KvfRvqpvFG8UAW99G+qm8VasrW81K8g07TbeS7u7lxHFDChkkkduiqiglifQCgBd9ael6Preuyvb6Hp1zqMsS73S2heZlUdyEBIHua/T39nP/gmF468bG18T/HOeTwnor4caZEQdTnX0kPKW4I9dz/7K1+3Pwx+Efw5+Dnh2Pwt8N9Ct9EsEwWES5klb+/LK2XkY+rE/lQB/HuxdGZHBVlJBBGCCOoIPQ0m+v6gf2iv2Gvgz+0FHcaxNaf8I14skHy6tYIqtI3b7TDwkw9zh/Ru1fg3+0H+x/8AGf8AZ0uZLrxVpn9p+Hd2ItZsA0toQeglGN0LH0cAejN1oA+Yt9G+qm8UbxQBb31Yt3+9+FZm8Vat2+9+FAH/0fyX30b6qbqN1AFrfX9If/BOH4T/AAS0v4I6F8SfCdva6p4w1KNxql++2W6tZ95DWyg5MCqMcAAuPmJIIr+bLfX118LND/aC+EekaX8Y/gzrclvcXsXnTWtoxYvEGO1ZYGzHOpAyVIJHbnmgD+rWivyi/Zy/4Kg+BvG0tt4Q+PFqngzxASIvt67v7Nmk6fvN2Xt2J678p/tDpX6q2l5aahaxX1hOlzbTqHjliYOjq3IZWXIII6EUAWKr3dpaX9rLZX0KXNvOpSSORQ6OrcFWU5BB7g15r8WPjT8Mvgh4bk8U/EzXYNHtAD5SOd09w4H3IYVy8jH0UcdSQOa/FX4z/wDBRD40/HnUbjwD+zfpVx4Z0eXKSX3H9pSRk43NKCY7VD/skv8A7fagDxj/AIKNfDT4O/C742WemfCVYLF7+yNzqum2rhobO5MhC7VBPlGRPmMfAHBAAIr8/t9elfFf4ceIfh1qtkniW/TUb3V4WupJVdnbzN2HDs/zMc87j1ryrdQBb31Ztn+9+FZe+rVs/wB78KAP/9L8g99G+qm6jdQBb319OfD3x98XPhJ4Z0/XbjS5dR8G32541k5VAWIJR1yYskEjcNp9O9fLG6vrT4PftIw+FtHtvBXjiz+16PApiiuI1DvHGTnbJGeHUZ7cgdjQB7ZJafBT9pCzaa1caf4h2ZJAWK8Q/wC0v3ZlHrz9RWD4f8Z/tgfsrQSaH8MfEF1eeHbpisSRQLf26M/dbeZXMDnvtAUnuaTxH8BfBPj61Xxt8GtXi067J8xBA5+zFxzgbfnhf9B/dFcnbfH74qfChz4b+KOhnUJYwRDcO/lPIB0PmhWSUe459aAOps/g18Rfivr0nxH/AGivEV1d3cw3vFNNun2Dnaz/AHIEH9xBx7Vc8RfHjwJ8O7RfBfwe0uLUrzPlr9nQ/ZxJ0zlfnnf6Hn+9XCJp/wAbP2jZEm1N/wDhG/CjMCq4ZI3X1VOHmPu2F9MV6Wbj4J/s2WZSL/iY+IWTkArLevn1PCwofw/GgD48+KcfxJOu2+q/E6OWO/1GASwiTaAsOSAqqvCBT/D1HfrXme+vQPil8UdZ+KevprGpxJaw2yGK2gjJIjjJ3HLHlmJ6nj2ArzTdQBb31ZtnPzfhWXuq1bP978KAP//T/G/fRvqpvFG8UAW99G+qm8UbxQB2fhPxv4n8D6kNV8L38ljNxuCnMcgHaRD8rD6j6V9m+G/2pvA/iLSksvilowW5gIcNHAt1bu69GVHyyN+Y96/P/eKN4oA+u/iV+1R4h8QCTSfAkbaJpxG37Qcfa3HsR8sY+mT7ivlKa4muJXnndpZZCWZ2O5mJ6kk8k1R3ijeKALe+jfVTeKN4oAt76s2zn5vwrL3irVs4+b8KAP/U/FvfRvqruNG40AWt9G+qu40bjQBa30b6q7jRuNAFrfRvqruNG40AWt9G+qu40bjQBa31Ztn+9+FZm41atmPzfhQB/9k=","krava":"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","donate":"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","discord":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAgESAAMAAAABAAEAAIdpAAQAAAABAAAAJgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAXaADAAQAAAABAAAAXQAAAAD/wAARCABdAF0DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwACAgICAgIDAgIDBQMDAwUGBQUFBQYIBgYGBgYICggICAgICAoKCgoKCgoKDAwMDAwMDg4ODg4PDw8PDw8PDw8P/9sAQwECAgIEBAQHBAQHEAsJCxAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQ/90ABAAG/9oADAMBAAIRAxEAPwD8wfNf+8aPNf8AvGqW4Uu8UAXPNf8AvGjzX/vGqe8Um4UAXfNf+8aPNf8AvGqe8UbxQBc81/7xo81/7xqnvFG8UAXPNf8AvGjzX/vGqe8UbxQBc81/7xqxBM/zfMe1Ze8VYgf734UAf//Q/KvfRvqpvFG8UAW99G+qm8Vr6Jo99r9+mn6em525Zj91F7sx9KAKW+rMdteTDdDBI49VQkfoK+jvD/gTQdDRHkiF5dDrLKMgH/ZU8D+ddurhRhflHoOKAPjWRZYTtmRoz6MCD+tM319iXdrZ38RhvYUnjbqHUMP1rx3xb8NYkifUfDYIKDLWxOcjuUJ5z7H8PSgDx3fRvqqWwcHgik3igC3vqxbv978KzN4q1bt978KAP//R/JffRvqpuo3UAWt9fUfgHQU0PQopHXF1eASynuM/dX8B+ua+XLFBPfW8DdJJEU/QsAa+39Mms7bUrOS+j82zhmjaVB1aJWG5fxXIoA6I+CvGi6H/AMJO2g340fG77Z9ll+z7f73mbduPfOKg0Hwn4r8VPKnhjRrzV2gGZBaW8k+wHpu2KcZ7Zr9tvGXizx9d6RF8R/guunePPAU2kG3l0AFYnBHJkjZUYsRH8jQNgjoATXzRq3j7Wv2df2TPh1rvw1SHTr/xNeR3V47RLKXWZJLh0O8HsFjB6hRxg0AfmhFpWrz6kNFgsp5NRLmIWyxMZzIOqeWBu3e2M1d17wx4n8K3Edr4m0m70iaVdyJdwPAzL6qHAyPpX7T6xc/DfwX+1BoXivXTb6VqXjXw5LDBcShVQXsUsfJZuA8kTbAT1C7c88/KH7YN18ZdH+H2meD/AIpadaa9ax6kZ7LxPbYRmBDlYJIVQCJyhwcHDBeCSKAPxg+KGgppeqR6paptgv8AO4DoJR1/76HP515hvr6I+KsayeFfNOMwzxkfjkH+dfNm6gC3vqzbP978Ky99WrZ/vfhQB//S/IPfRvqpuo3UAX4bhoJo5l6xsrD/AICc19v6Bq9qJ9O1swpe24eG4MT/AHJUBDFG9mHBr4R3V7n8L/GMQiXw1qMgVlJ+zMTwQeSmfXPT8qAP3P8AC/7Q/wCyh8P9Tvvij4FOpaVql/pwtpPDdtAYrNp1IZXKhfKD5G3zA+MZOMnFeZeD/jn8C/if8JdN+Gn7QMl5pEvh7UGvbSayRnSVN7sseUSQrhZDGwKjKgEMD0/OvcaNxoA/STXP2ovgn8QfjbNffELw5/aHgSHS/wCy7GSe3Es0D797XPlclQ+dvHzAKpxnIrlPjt8bPhM3wP0v4GfCvVNS8SwQXa3D32pBt0MUbM6xKzqjMcsAMLhVGMkmvgbcaq3l9bafayXt7IsMMI3MzHgCgDzn4u6jHDoltpwP7y5mD4/2Yx1/MivnnfW54u8SyeJtZkvyNkCDZCp7IPX3PU1zG6gC3vqzbOfm/CsvdVq2f734UAf/0/xv30b6qbxRvFAFvfQJCCCCQR3qpvFG8UAev+Hfivq2mRpa6vH9vgXgPnEoH16N+PPvXosHxa8KSrmUzwt6NHn9QTXy3vFG8UAfSl/8YdDhQ/2dbTXMnbcBGv4nk/pXjviPxjrPieQG/k2QKcpCnCD3x3Pua43eKN4oAt76N9VN4o3igC3vqzbOfm/CsveKtWzj5vwoA//U/FvfRvqruNG40AWt9G+qu40bjQBa30b6q7jRuNAFrfRvqruNG40AWt9G+qu40bjQBa31Ztn+9+FZm41atmPzfhQB/9k="}) >> Icons
+var 5DAEE2D6-A184-4D0A-AD97-A42E0ADBA0BD = """Welcome back to Repo Installer++! 👋
+
+What do you want to do today?
+
+(v)"""
+text("${5DAEE2D6-A184-4D0A-AD97-A42E0ADBA0BD}")
+var DE279402-204F-4C27-9AC5-49E89882DB00 = """BEGIN:VCARD
+VERSION:3.0
+N:Add Repos
+ORG:Add repos in a signer
+PHOTO;BASE64:
+NOTE:add
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N:Repo Packs
+ORG:Manage your Repo Packs
+PHOTO;BASE64:
+NOTE:packs
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N:Get a cheap certificate for a year!
+ORG:Sign your apps without any hassle
+PHOTO;BASE64:
+NOTE:krava
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N:Donate me
+ORG:Support the development
+PHOTO;BASE64:
+NOTE:donate
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N:Support
+ORG:Join the Discord server if you have issues
+PHOTO;BASE64:
+NOTE:discord
+END:VCARD"""
+text("${DE279402-204F-4C27-9AC5-49E89882DB00}")
+setName(input: Testo, name: "menu.vcf") >> setName
+choose(list: Elemento rinominato, prompt: "${Testo}") >> Menu
+if(Menu == "add") {
+    getFile(path: "Settings/pack.json") >> getFile 3
+    getDictionaryFrom(input: File) >> getDictionaryFrom 1
+    getFile(path: "Packs/${Dizionario.key(file)}") >> getFile 4
+    getDictionaryFrom(input: File) >> getDictionaryFrom 2
+    valuesFrom(dictionary: Dizionario) >> valuesFrom 4
+    count(input: Dictionary Value) >> count
+var A371B261-9A20-4832-93A4-604F42EAEF94 = """📥 Add Repos
+
+In the list below choose the signer apps where you want to add the repos.
+
+🗄️ Selected Pack: 
+📁 Repos to add: """
+text("${A371B261-9A20-4832-93A4-604F42EAEF94}")
+    choose(list: Signer Apps, prompt: "${Testo}", multiple: true) >> choose
+    repeatEach(Selected Item) {
+        if(Repeat Item == "KravaSigner 🔥") {
+            text() >> text
+var KS = Text
+            repeatEach(Dictionary Value) {
+                if(Repeat Index 2 >= 1) {
+//Unable to get shortcuts action is.workflow.actions.appendvariable
+                } >> IFResult 5
+            } >> RepeatResult
+            combineText(text: KS, combine: Custom, separator: "[K$]") >> combineText
+            getItemFromList(list: Dictionary Value) >> getItemFromList
+            text(text: "${Item from List}${ActionOutput}") >> text 1
+            encode(input: Text) >> encode
+var KS = Base64 Encoded
+            setClipboard(variable: KS) >> setClipboard
+            alert(alert: "
+A bunch of text has been copied to your clipboard. To continue open Kravasign and paste the text on the Add Repo page to import all repos.", title: "Kravasigner", cancel: false)
+        } else {
+            repeatEach(Dictionary Value) {
+                openURL(url: "${Repeat Item}${Variable}") >> openURL
+            } >> RepeatResult 1
+        } >> IFResult 6
+    } >> RepeatResult 2
+    alert(alert: "
+All the ${Conteggio} repos from the ${ActionOutput} pack has been successfully added to ${Dizionario.key(name)}!
+
+Missing repos? Maybe because the signer doesn't support it or it's broken. If it's broken, please report them to my Discord server, thanks! ❤️", title: "📥 Adding complete!", cancel: false)
+    exit()
+} >> IFResult 7
+if(Menu == "packs") {
+    getFile(path: "Settings/pack.json") >> getFile 5
+    getFile(path: "Packs") >> getFile 6
+    getFolderContents(folder: File) >> getFolderContents
+    repeatEach(Ottieni contenuti della cartella) {
+        getName() >> getName
+        getDictionaryFrom(input: Repeat Item) >> getDictionaryFrom 3
+        valuesFrom(dictionary: Dizionario) >> valuesFrom 5
+        getDictionaryFrom(input: File) >> getDictionaryFrom 4
+        valuesFrom(dictionary: Dizionario) >> valuesFrom 6
+        if(Valore dizionario == ""${Valore dizionario}"") {
+            text(text: "✅") >> text 2
+var IsDefaultPack = Testo
+        } else {
+            text(text: "") >> text 3
+var IsDefaultPack = Testo
+        } >> IFResult 8
+        if(Nome != "Drafts") {
+            dictionary({"${IsDefaultPack} ${Variable}":"${Nome} - ${ActionOutput}.${Repeat Item.get(File Extension)}"})
+//Unable to get shortcuts action is.workflow.actions.appendvariable
+        } else {
+        } >> IFResult 9
+    } >> RepeatResult 3
+    text(text: "${list}") >> text 4
+    replaceText(input: "${Testo}", find: "}
+{", replace: ",") >> replaceText
+    replaceText(input: "${Testo aggiornato}", find: "}", replace: ",") >> replaceText 1
+    text(text: "${Testo aggiornato}"➕ Add Pack":"Import/Create a new Pack"}") >> text 5
+    getDictionaryFrom(input: Testo) >> getDictionaryFrom 5
+var DC12AD66-127F-4313-A35A-267A17E8537C = """🗄️ Repo Packs
+
+Click on a pack to enable it or for other functions. The repos contained in the enabled pack are added to the signer the next time you press “📥 Add Repo” on the home page."""
+text("${DC12AD66-127F-4313-A35A-267A17E8537C}")
+    choose(list: Dizionario, prompt: "${Testo}") >> choose 1
+    if(Elemento selezionato == "➕ Add Pack") {
+var DFA9821B-A7A7-420F-8F40-99464A67BE37 = """➕ Add Pack
+
+How do you want to add a new pack?"""
+text("${DFA9821B-A7A7-420F-8F40-99464A67BE37}")
+        menu(, [📄 Import from file, ➕ Create from scratch, ❎ Close]) {
+        case("📄 Import from file"):
+            selectFile() >> selectFile
+            if(File != "json") {
+                alert(alert: "
+This is not a valid Repo Installer++ file.
+(File is not json)", title: "❎ Invalid file", cancel: false)
+                runShortcut(name: "Repo Installer++ Rewrite") >> runShortcut
+                exit()
+            } >> IFResult 10
+        case("➕ Create from scratch"):
+            alert(alert: "
+This feature is still in development. Please consider boosting my discord server or donating to get it sooner!", title: "❎ Coming soon ™", cancel: false)
+            runShortcut(name: "Repo Installer++ Rewrite") >> runShortcut 1
+            exit()
+        case("❎ Close"):
+            runShortcut(name: "Repo Installer++ Rewrite") >> runShortcut 2
+        } >> MenuResult 1
+    } >> IFResult 11
+    if(Elemento selezionato .beginsWith "Default") {
+        getFile(path: "Packs/default.json") >> getFile 7
+        getDictionaryFrom(input: File) >> getDictionaryFrom 6
+        count(input: Dizionario) >> count 1
+        getFile(path: "Settings/pack.json") >> getFile 8
+        if(File .contains ""${Elemento selezionato.get(Name)}"") {
+            text(text: "✅") >> text 6
+var IsDefaultPack = Testo
+        } >> IFResult 12
+var 4157F8D2-3E7C-4B27-B120-FF12EA9E5BE9 = """🗄️ Default 
+
+
+
+Creator: 
+Repos: 
+(This is default, you can't remove it)"""
+text("${4157F8D2-3E7C-4B27-B120-FF12EA9E5BE9}")
+        menu(, [✅ Set as Default, 📄 List Repos, ❎ Close]) {
+        case("✅ Set as Default"):
+            if(IsDefaultPack == "✅") {
+                alert(alert: "
+You already set this Repo as default!", title: "❎ Error", cancel: false)
+            } else {
+                dictionary({"name":"Default","file":"default.json"})
+                saveFile(input: Dizionario, ask: false, path: "Settings/pack.json", overwrite: true) >> saveFile 3
+                alert(alert: "
+This Repo Pack has been set as default!", title: "✅ Set as Default", cancel: false)
+            } >> IFResult 13
+        case("📄 List Repos"):
+            showResult(text: "${Dizionario.key(repos)}")
+        case("❎ Close"):
+        } >> MenuResult 2
+        runShortcut(name: "Repo Installer++ Rewrite", input: Risultato menu) >> runShortcut 3
+        exit()
+    } >> IFResult 14
+    matchText(text: "${Elemento selezionato}", regex: "\b\w+\.json\b", caseSensitive: false) >> matchText
+    getFile(path: "Packs/${Risultati}") >> getFile 9
+    getDictionaryFrom(input: File) >> Selected Repo Data
+    getFile(path: "Settings/pack.json") >> getFile 10
+    if(File .contains ""${Risultati}"") {
+        text(text: "✅") >> text 7
+var IsDefaultPack = Testo
+    } else {
+        text() >> text 8
+var IsDefaultPack = Testo
+    } >> IFResult 15
+    count(input: Selected Repo Data) >> count 2
+var BCC2A7E3-27C7-4EFD-B4C3-613B884583ED = """🗄️  
+
+
+
+Creator: 
+Repos: """
+text("${BCC2A7E3-27C7-4EFD-B4C3-613B884583ED}")
+    menu(, [✅ Set as Default, ❎ Close]) {
+    case("✅ Set as Default"):
+        if(IsDefaultPack == "✅") {
+            alert(alert: "
+You already set this Repo as default!", title: "❎ Error", cancel: false)
+        } else {
+            getName() >> getName 1
+            dictionary({"name":"${Selected Repo Data.key(name)}","file":"${Nome}.${ActionOutput}"})
+            saveFile(input: Dizionario, ask: false, path: "Settings/pack.json", overwrite: true) >> saveFile 4
+            alert(alert: "
+This Repo Pack has been set as default!", title: "✅ Set as Default", cancel: false)
+        } >> IFResult 16
+    case("❎ Close"):
+    } >> MenuResult 3
+    runShortcut(name: "Repo Installer++ Rewrite", input: Risultato menu) >> runShortcut 4
+} >> IFResult 17
+if(Menu == "krava") {
+    alert(alert: "
+Having trouble with your sideloaded apps? Getting a "Failed to verify integrity" error or the app is no longer available? Not anymore!
+
+🐮 We've partnered with Kravasign to offer you a one-year certificate that's less expensive than all the others!
+
+What can you do with Kravasign? 🤔
+- Sideload apps without a PC
+- Use them all year round without errors
+- Use apps without DNS!
+
+🔥 Click OK to learn more!", title: "🔥 Get a one-year certificate at a low price!", cancel: $2)
+    openURL(url: "https://kravasign.com/repo-installer") >> openURL 1
+} >> IFResult 18
+if(Menu == "donate") {
+    openURL(url: "https://coff.ee/kl9ije") >> openURL 2
+}
+if(Menu == "discord") {
+    alert(alert: "
+Join the gocciola's Discord server for support regarding Repo Installer++.", title: "🆘 Support", cancel: $2)
+    openURL(url: "https://gocciola.xyz/discord") >> openURL 3
+}
