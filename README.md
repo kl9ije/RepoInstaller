@@ -1,7 +1,7 @@
 # 🗄️ Repo Installer++
 Repo Installer++ is an source adder (or repo adder) where you can import more than **80 repositories** into your favorite signers with ease! (that's more than 15k apps!) 😎
 
-|![](https://images.guns.lol/701tN.png)|![](https://images.guns.lol/bVpw3.png)|
+|![](https://images.guns.lol/JaF3H.png)|![](https://images.guns.lol/0bti9.png)|
 | :------------: | :------------: |
 |The shortcut itself|Result on Feather|
 
