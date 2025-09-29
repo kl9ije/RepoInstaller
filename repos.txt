@@ -49,6 +49,7 @@ https://qnblackcat.github.io/AltStore/apps.json
 https://quarksources.github.io/quantumsource.json
 https://quarksources.github.io/quantumsource++.json
 https://randomblock1.com/altstore/apps.json
+https://raw.githubusercontent.com/actuallyaridan/NeoFreeBird/refs/heads/main/AltSource.json
 https://raw.githubusercontent.com/arichornlover/arichornlover.github.io/main/apps.json
 https://raw.githubusercontent.com/arichornlover/arichornlover.github.io/main/apps2.json
 https://raw.githubusercontent.com/arichornloveralt/arichornloveralt.github.io/main/apps.json
@@ -78,9 +79,9 @@ https://repository.apptesters.org
 https://rickowens.su/repo.json
 https://spotc-repo.yodaluca.dev/AltStore%20Repo.json
 https://taurine.app/altstore/taurinestore.json
+https://tiny.one/SpotC
 https://theodyssey.dev/altstore/odysseysource.json
 https://therealfoxster.github.io/altsource/apps.json
-https://tiny.one/SpotC
 https://web.archive.org/web/20210225095501if_/https://appybois.com
 https://web.archive.org/web/20210225095501if_/https://appybois.com/
 https://web.archive.org/web/20250310010244if_/https://repo.realmzer.xyz/
