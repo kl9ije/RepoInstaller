@@ -28,6 +28,7 @@ https://css.eyz.ink/appstore
 https://driftywinds.github.io/AltStore/apps.json
 https://driftywinds.github.io/repos/esign.json
 https://flyinghead.github.io/flycast-builds/altstore.json
+https://ftrepo.xyz/apps.json
 https://github.com/dvntm0/AltStore/raw/refs/heads/main/esign.json
 https://github.com/dvntm0/AltStore/raw/refs/heads/main/feather.json
 https://github.com/khcrysalis/Feather/raw/main/app-repo.json
