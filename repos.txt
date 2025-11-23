@@ -1,4 +1,3 @@
-https://web.archive.org/web/20230312090639if_/https://repo.starfiles.co/public
 https://aio.zxcvbn.fyi/r/repo.feather.json
 https://alt.crystall1ne.dev
 https://alt.getutm.app/
@@ -34,8 +33,6 @@ https://github.com/dvntm0/AltStore/raw/refs/heads/main/esign.json
 https://github.com/dvntm0/AltStore/raw/refs/heads/main/feather.json
 https://github.com/khcrysalis/Feather/raw/main/app-repo.json
 https://hottubapp.io/altstore
-https://ia601404.us.archive.org/11/items/ms_20220903/MS.json
-https://ia601505.us.archive.org/10/items/motoca-store/Motoca%20Store.json
 https://ikghd.site/repo.json
 https://ipa.cypwn.xyz/cypwn_ts.json
 https://ipa.cypwn.xyz/cypwn.json
@@ -86,6 +83,7 @@ https://theodyssey.dev/altstore/odysseysource.json
 https://therealfoxster.github.io/altsource/apps.json
 https://web.archive.org/web/20210225095501if_/https://appybois.com
 https://web.archive.org/web/20210225095501if_/https://appybois.com/
+https://web.archive.org/web/20230312090639if_/https://repo.starfiles.co/public
 https://web.archive.org/web/20250310010244if_/https://repo.realmzer.xyz/
 https://website.burrito.software/altstore/channels/burritosource.json
 https://wuxu1.github.io/wuxu-complete-plus.json
